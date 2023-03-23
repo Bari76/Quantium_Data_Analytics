@@ -1,3 +1,5 @@
+###*** Retail Strategy and Analytics - Task 1****###
+###*
 ###**Clear the environment**##
 rm(list = ls())
 
@@ -8,8 +10,8 @@ library(ggthemes)
 library(ggmosaic)
 library(janitor)
 
-pkgs <- c("tidyverse","data.table","ggthemes","ggmosaic","janitor","readxl")
-pacman::p_load(pkgs,character.only = T)
+#pkgs <- c("tidyverse","data.table","ggthemes","ggmosaic","janitor","readxl")
+#pacman::p_load(pkgs,character.only = T)
 
 #Load the dataset
 library(readxl)
@@ -82,16 +84,17 @@ ggplot(stack(num),aes(x= ind, y=values))+
    theme_wsj()+
    theme(text = element_text(size = 15),plot.title = element_text(hjust = 0.25,face = "bold"))+
    theme(axis.text.x = element_text(angle=0,vjust = 0.5,hjust = 1))
-#AS we can see that the increase in sales occurs in the lead-up to Christmas and that there are zero sales on
+
+ #AS we can see that the increase in sales occurs in the lead-up to Christmas and that there are zero sales on
 # Christmas day itself. This is due to shops being closed on Christmas day.
  
  #Let's examine the pack size
  transaction_data <- transaction_data %>% 
    mutate(Size_in_grammes = str_extract(prod_name,"\\d{1,3}"))
  
- transaction_data$prod_name %>%  gsub("[[:alpha:]]","") %>% 
-   gsub("[gG]","") %>% 
- table()
+ #transaction_data$prod_name %>%  gsub("[[:alpha:]]","") %>% 
+   #gsub("[gG]","") %>% 
+ #table()
 
 transaction_data$Size_in_grammes <- as.numeric(transaction_data$Size_in_grammes)
 summary(transaction_data$Size_in_grammes)
@@ -107,7 +110,8 @@ transaction_data %>%
   theme(text = element_text(size = 15),plot.title = element_text(hjust = 0.25,face = "bold"))+
   theme(axis.text.x = element_text(angle=0,vjust = 0.5,hjust = 1))
 
-hist(transaction_data$Size_in_grammes)
+#hist(transaction_data$Size_in_grammes)
+
 #Let's create bins for package size
 #Which package size are popular to each customer segment.
 
@@ -141,7 +145,7 @@ library(dplyr)
 transaction_data$Pack_size <- sapply(transaction_data$Size_in_grammes,group_package)
 glimpse(transaction_data)
 
-transaction_data$package <- sapply(transaction_data$pack_size, group_package)
+#transaction_data$package <- sapply(transaction_data$pack_size, group_package)
 transaction_data$package <- as.factor(transaction_data$package)
 glimpse(transaction_data)
 levels(chips$Packs_Size)
